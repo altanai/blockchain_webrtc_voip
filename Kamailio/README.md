@@ -53,12 +53,6 @@ kamcmd> core.sockets_list
                 mhomed: no
         }
 }
-kamcmd> 
-
-```
-
-
-
 
 kamcmd> ws.dump
 {
@@ -75,7 +69,25 @@ kamcmd> tls.info
         opened_connections: 0
         clear_text_write_queued_bytes: 0
 }
+```
 
+## Accounting from SIP and VoIP for Call detail Records 
+
+
+ACC module is used to account transactions information to different backends like syslog and SQL. 
+"acc_diameter" and' “acc_radius” support for radius and diameter is separate. 
+
+```shell script
+11(20817) INFO: <script>:  ---------------- do relay 
+...
+14(20820) INFO: <script>:  ---------------- request_route, methods <BYE> <8085>
+...
+14(20820) INFO: <script>:  ---------------- do relay 
+...
+11(20817) NOTICE: acc [acc.c:279]: acc_log_request(): ACC: transaction answered: timestamp=1604565560;method=BYE;from_tag=12c35q3n42;to_tag=9p3sh1v9bv;call_id=ub2ds9fg5jhuc0g9jinb;code=200;reason=OK
+```
+
+The last bit of the snippet depcting the call transaction that took places is aggregated and inserted into blocks for record-keeping by distributed ledger , blockchain
 
 ### Requisites 
 

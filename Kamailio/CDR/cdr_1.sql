@@ -74,3 +74,14 @@ BEGIN
         ;
 END; //
 DELIMITER ;
+
+
+
+
+
+-- import cdrs
+INSERT collection_cdrs (cdr_id, src_username, src_domain, dst_username, dst_domain, dst_ousername, call_start_time, duration, sip_call_id, sip_from_tag, sip_to_tag, src_ip, cost, rated, sip_code, sip_reason) SELECT cdr_id, src_username, src_domain, dst_username, dst_domain, dst_ousername, call_start_time, duration, sip_call_id, sip_from_tag, sip_to_tag,  src_ip, cost, rated, 200, '' FROM cdrs;
+
+
+-- import missed_calls
+INSERT collection_cdrs (cdr_id, src_username, src_domain, dst_username, dst_domain, dst_ousername, call_start_time, duration, sip_call_id, sip_from_tag, sip_to_tag, src_ip, cost, rated, sip_code, sip_reason) SELECT cdr_id, src_user, src_domain, dst_user, dst_domain, dst_ouser, time, 0, callid, from_tag, to_tag,  src_ip, 0, 0, sip_code, sip_reason FROM missed_calls;
