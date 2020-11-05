@@ -1,0 +1,5 @@
+Kamailio/certs/
+webphone/node_modules/
+.idea/
+rsk/logs/
+rsk/rskj-core-2.1.0-PAPYRUS-all.jar
