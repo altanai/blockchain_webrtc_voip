@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Plivo VOIP Smart contract</title>
+    <title>WebRTC/VOIP Smart contract</title>
 
     <link rel="stylesheet" type="text/css" href="main.css">
 
-    <script src="./node_modules/web3/dist/web3.min.js"></script>
+<!--    <script src="./node_modules/web3/dist/web3.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 
 </head>
 <body>
 <div class="container">
 
-    <h1>VOIP Instructor - TEST</h1>
+    <h1>WebRTC/VOIP - RSK smart contract network  </h1>
 
     <h2 id="instructor"></h2>
 
@@ -27,10 +28,10 @@
     <img id="loader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif">
 
     <label for="name" class="col-lg-2 control-label">sip To</label>
-    <input id="sipto" type="text" value="sip:altanai@plivo.com">
+    <input id="sipto" type="text" value="sip:altanai@127.0.0.1">
 
     <label for="name" class="col-lg-2 control-label">sip From</label>
-    <input id="sipfrom" type="text" value="sip:2000@plivo.com">
+    <input id="sipfrom" type="text" value="sip:jack@127.0.0.1">
 
     <label for="name" class="col-lg-2 control-label">Call Subject</label>
     <input id="callsubject" type="text" value="archietcturedicsussion">
@@ -47,207 +48,209 @@
 
 <script>
 
-         if (typeof web3 !== 'undefined') {
-             web3 = new Web3(web3.currentProvider);
-         } else {
-             // set the provider you want from Web3.providers
-             web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-         }
-        //web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-        web3.version.getNetwork((err, netId) => {
-          switch (netId) {
+    if (typeof web3 !== 'undefined') {
+        web3 = new Web3(web3.currentProvider);
+    } else {
+        // set the provider you want from Web3.providers
+        web3 = new Web3(new Web3.providers.HttpProvider("https://public-node.testnet.rsk.co"));
+    }
+
+    web3.version.getNetwork((err, netId) => {
+        switch (netId) {
             case "1":
-              console.log('This is mainnet')
-              break
+                console.log('This is mainnet')
+                break
             case "2":
-              console.log('This is the deprecated Morden test network.')
-              break
+                console.log('This is the deprecated Morden test network.')
+                break
             case "3":
-              console.log('This is the ropsten test network.')
-              break
+                console.log('This is the ropsten test network.')
+                break
             case "4":
-              console.log('This is the Rinkeby test network.')
-              break
+                console.log('This is the Rinkeby test network.')
+                break
             case "42":
-              console.log('This is the Kovan test network.')
-              break
+                console.log('This is the Kovan test network.')
+                break
             default:
-              console.log('This is an unknown network.')
-          }
-        });
+                console.log('This is an unknown network.')
+        }
+    });
 
-        web3.eth.defaultAccount = web3.eth.accounts[0];
-        var voipContract = web3.eth.contract([
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_sipto",
-                        "type": "string"
-                    },
-                    {
-                        "name": "_sipfrom",
-                        "type": "string"
-                    },
-                    {
-                        "name": "_callsubject",
-                        "type": "string"
-                    },
-                    {
-                        "name": "_callid",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "setInstructor",
-                "outputs": [],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "sipto",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "string"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "callid",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "sipfrom",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "string"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "getInstructor",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "string"
-                    },
-                    {
-                        "name": "",
-                        "type": "string"
-                    },
-                    {
-                        "name": "",
-                        "type": "string"
-                    },
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "callsubject",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "string"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            }
-        ]);
+    web3.eth.defaultAccount = web3.eth.accounts[0];
+    var voipContract = web3.eth.contract([
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_sipto",
+                    "type": "string"
+                },
+                {
+                    "name": "_sipfrom",
+                    "type": "string"
+                },
+                {
+                    "name": "_callsubject",
+                    "type": "string"
+                },
+                {
+                    "name": "_callid",
+                    "type": "uint256"
+                }
+            ],
+            "name": "setInstructor",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "sipto",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "callid",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "sipfrom",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getInstructor",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "string"
+                },
+                {
+                    "name": "",
+                    "type": "string"
+                },
+                {
+                    "name": "",
+                    "type": "string"
+                },
+                {
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "callsubject",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]);
 
-        //0x095da2b1bc0a415053ac33c2f981e76077ba472b
-        //0xa67c51cbc97148e33407b90582eb2430f7002fbf
-        var voipo = voipContract.at('0x095da2b1bc0a415053ac33c2f981e76077ba472b');
-        console.log("voipc " , voipo);
+    //0x095da2b1bc0a415053ac33c2f981e76077ba472b
+    //0xa67c51cbc97148e33407b90582eb2430f7002fbf
+    var voipo = voipContract.at('0xB28464bFe40E2D42972360C6d4bDC17d61F72FA8');
+    console.log("voipc ", voipo);
 
-        // voipc.getInstructor(function(error, result) {
-        //    if (!error) {
-        //        $("#instructor").html(result[0]+"-->"+result[1] +' ('+result[2]+')');
-        //    } else
-        //         console.log(error);
-        // });
+    // voipc.getInstructor(function(error, result) {
+    //    if (!error) {
+    //        $("#instructor").html(result[0]+"-->"+result[1] +' ('+result[2]+')');
+    //    } else
+    //         console.log(error);
+    // });
 
-        var instructorEvent = voipo.instructorInfo({},'latest');
+    var instructorEvent = voipo.New_Trans("altanai","hridyesh","234234");
 
-        instructorEvent.watch(function (err, result) {
-            if (!err) {
-                if (result.blockHash != $("#instrans").html()) 
-                    $("#loader").hide();
-                    
-                $("#insTrans").html('Block hash: ' +result.blockHash);
-                $("#instructor").html(result[0]+"-->"+result[1] +' ('+result[2]+')');
-                //$("#instructor").html(web3.toAscii(result.args.fName) + ' ' + 
-                //    web3.toAscii(result.args.lName) + ' (' + result.args.age + ' years old)');
-            } else {
+    instructorEvent.watch(function (err, result) {
+        if (!err) {
+            if (result.blockHash != $("#instrans").html())
                 $("#loader").hide();
-                console.log(err);
-            }
-        });
 
-        voipo.countInstructors((err, res) => {
-            if (res)
-                $("#countIns").html(res.c + ' Instructors'); 
-        });
+            $("#insTrans").html('Block hash: ' + result.blockHash);
+            $("#instructor").html(result[0] + "-->" + result[1] + ' (' + result[2] + ')');
 
-        // $("#button").click(function() {
-        //    $("#loader").show();
-        //    voipo.setInstructor($("#sipto").val(), 
-        //                         $("#sipfrom").val(),
-        //                         $("#callsubject").val(),
-        //                         $("#callid").val(), 
-        //                         (err, res) => {
-        //                             if (err) {
-        //                                 $("#loader").hide();
-        //                                 console.log('oh no');
-        //                             }
-        //                         }
-        // )});
 
-        $("#button").click(function() {
-            $("#loader").show();
-            Coursetro.setInstructor(web3.eth.defaultAccount, 
-                $("#sipto").val(), 
-                $("#sipfrom").val(),
-                $("#callsubject").val(),
-                $("#callid").val(), 
-                (err, res) => {
-                if (err) 
+            //$("#instructor").html(web3.toAscii(result.args.fName) + ' ' +
+            //    web3.toAscii(result.args.lName) + ' (' + result.args.age + ' years old)');
+        } else {
+            $("#loader").hide();
+            console.log(err);
+        }
+    });
+
+    voipo.countInstructors((err, res) => {
+        if (res)
+            $("#countIns").html(res.c + ' Instructors');
+    });
+
+    // $("#button").click(function() {
+    //    $("#loader").show();
+    //    voipo.setInstructor($("#sipto").val(),
+    //                         $("#sipfrom").val(),
+    //                         $("#callsubject").val(),
+    //                         $("#callid").val(),
+    //                         (err, res) => {
+    //                             if (err) {
+    //                                 $("#loader").hide();
+    //                                 console.log('oh no');
+    //                             }
+    //                         }
+    // )});
+
+    $("#button").click(function () {
+        $("#loader").show();
+        Coursetro.setInstructor(web3.eth.defaultAccount,
+            $("#sipto").val(),
+            $("#sipfrom").val(),
+            $("#callsubject").val(),
+            $("#callid").val(),
+            (err, res) => {
+                if (err)
                     $("#loader").hide();
             });
-        });
+    });
 
 
 </script>

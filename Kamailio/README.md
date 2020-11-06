@@ -87,7 +87,14 @@ ACC module is used to account transactions information to different backends lik
 11(20817) NOTICE: acc [acc.c:279]: acc_log_request(): ACC: transaction answered: timestamp=1604565560;method=BYE;from_tag=12c35q3n42;to_tag=9p3sh1v9bv;call_id=ub2ds9fg5jhuc0g9jinb;code=200;reason=OK
 ```
 
-The last bit of the snippet depcting the call transaction that took places is aggregated and inserted into blocks for record-keeping by distributed ledger , blockchain
+The last bit of the snippet depicting the call transaction that took places is aggregated and inserted into blocks for record-keeping by distributed ledger , blockchain
+
+## Integration of kamailio with JSON RPC of underlying blockchain using web3.js
+
+JSON-RPC is a stateless, light-weight remote procedure call (RPC) protocol as a data-interchange format.
+
+web3.js lib gives an interface for RPC methods 
+
 
 ### Requisites 
 

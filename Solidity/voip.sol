@@ -3,9 +3,9 @@ pragma solidity ^0.4.18;
 contract Voipo {
     string constant appname = 'Plivo';
     struct Instructor {
-        string  sipto;
-        string  sipfrom;
-        string  callsubject;
+        string sipto;
+        string sipfrom;
+        string callsubject;
         uint  callid;
     }
     
